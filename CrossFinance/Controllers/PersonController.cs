@@ -7,24 +7,20 @@
 // out of or in connection with the software or the use or other dealings in the software.
 // ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-
-
-
-
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls.WebParts;
+using CrossFinance.Models;
+using LinqToExcel;
+
 namespace CrossFinance.Controllers
 {
 	public class PersonController:Controller
 	{
-	   private CrossFinance.Models.applicationDbContext db = new CrossFinance.Models.applicationDbContext();
+	   private CrossFinance.Models.ApplicationDbContext db = new CrossFinance.Models.ApplicationDbContext();
 	   
 	     //
         // GET: /person/
@@ -34,7 +30,8 @@ namespace CrossFinance.Controllers
             return View(db.person.ToList());
         }
 
-        protected override void Dispose(bool disposing)
+
+	    protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);

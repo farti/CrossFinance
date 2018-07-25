@@ -12,14 +12,14 @@ namespace CrossFinance.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class person
+    public partial class Person
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Surname { get; set; }
         public string NationalIdentificationNumber { get; set; }
-        public Nullable<int> AddressId { get; set; }
+        public int AddressId { get; set; }
         public string PhoneNumber { get; set; }
         public string PhoneNumber2 { get; set; }
     }

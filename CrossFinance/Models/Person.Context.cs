@@ -15,9 +15,9 @@ namespace CrossFinance.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class applicationDbContext : DbContext
+    public partial class ApplicationDbContext : DbContext
     {
-        public applicationDbContext()
+        public ApplicationDbContext()
             : base("name=applicationDbContext")
         {
         }
@@ -27,7 +27,7 @@ namespace CrossFinance.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<person> person { get; set; }
+        public virtual DbSet<Person> person { get; set; }
     
         public virtual int sp_InsertPerson(string firstName, string secondName, string surname, string nationalIdentificationNumber, Nullable<int> addressId, string phoneNumber, string phoneNumber2)
         {
