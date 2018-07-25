@@ -18,7 +18,7 @@ namespace CrossFinance.Models
     public partial class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
-            : base("name=applicationDbContext")
+            : base("name=ApplicationDbContext")
         {
         }
     
@@ -27,7 +27,10 @@ namespace CrossFinance.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Person> person { get; set; }
+        public virtual DbSet<address> address { get; set; }
+        public virtual DbSet<agreement> agreement { get; set; }
+        public virtual DbSet<financialstate> financialstate { get; set; }
+        public virtual DbSet<person> person { get; set; }
     
         public virtual int sp_InsertPerson(string firstName, string secondName, string surname, string nationalIdentificationNumber, Nullable<int> addressId, string phoneNumber, string phoneNumber2)
         {

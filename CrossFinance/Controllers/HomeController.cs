@@ -17,7 +17,7 @@ namespace CrossFinance.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadExcel( Person objPersDetail , HttpPostedFileBase FileUpload)
+        public ActionResult UploadExcel( person objPersDetail , HttpPostedFileBase FileUpload)
         {
             string data = "";
             if (FileUpload != null)
@@ -36,13 +36,13 @@ namespace CrossFinance.Controllers
                         string sheetName = "Arkusz1";
 
                         var excelFile = new ExcelQueryFactory(pathToExcelFile);
-                        var persDetails = from a in excelFile.Worksheet<Person>(sheetName) select a;
+                        var persDetails = from a in excelFile.Worksheet<person>(sheetName) select a;
                         foreach (var a in persDetails)
                         {
                             int resullt = PostExcelData(a.FirstName, a.SecondName, a.Surname, a.NationalIdentificationNumber, a.AddressId, a.PhoneNumber, a.PhoneNumber2);
                             if (resullt <= 0)
                             {
-                                data = "Hello User, Found some duplicate values! Only unique person has inserted and duplicate values(s) are not inserted";
+                                data = "Found some duplicate values! Only unique person has inserted and duplicate values(s) are not inserted";
                                 ViewBag.Message = data;
                                 continue;
 

@@ -177,27 +177,35 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person.Context.cs">
+    <Compile Include="Models\address.cs">
+      <DependentUpon>crossfinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\agreement.cs">
+      <DependentUpon>crossfinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\crossfinanceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Person.Context.tt</DependentUpon>
+      <DependentUpon>crossfinanceModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person.cs">
-      <DependentUpon>Person.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Person.Designer.cs">
+    <Compile Include="Models\crossfinanceModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Person.edmx</DependentUpon>
+      <DependentUpon>crossfinanceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person1.cs">
+    <Compile Include="Models\crossfinanceModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Person.tt</DependentUpon>
+      <DependentUpon>crossfinanceModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\financialstate.cs">
+      <DependentUpon>crossfinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\person.cs">
+      <DependentUpon>crossfinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -214,15 +222,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Models\Person.Context.tt">
+    <Content Include="Models\crossfinanceModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Person.edmx</DependentUpon>
-      <LastGenOutput>Person.Context.cs</LastGenOutput>
+      <DependentUpon>crossfinanceModel.edmx</DependentUpon>
+      <LastGenOutput>crossfinanceModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Person.tt">
+    <Content Include="Models\crossfinanceModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Person.edmx</DependentUpon>
-      <LastGenOutput>Person1.cs</LastGenOutput>
+      <DependentUpon>crossfinanceModel.edmx</DependentUpon>
+      <LastGenOutput>crossfinanceModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -246,14 +254,14 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <EntityDeploy Include="Models\Person.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Person.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Person.edmx.diagram">
-      <DependentUpon>Person.edmx</DependentUpon>
-    </Content>
     <Content Include="DetailFormatInExcel\DetailsFormat.xlsx" />
+    <EntityDeploy Include="Models\crossfinanceModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>crossfinanceModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\crossfinanceModel.edmx.diagram">
+      <DependentUpon>crossfinanceModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -294,7 +302,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Person\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

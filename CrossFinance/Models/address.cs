@@ -12,25 +12,27 @@ namespace CrossFinance.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class person
+    public partial class address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public person()
+        public address()
         {
-            this.agreement = new HashSet<agreement>();
+            this.person = new HashSet<person>();
         }
     
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public string Surname { get; set; }
-        public string NationalIdentificationNumber { get; set; }
-        public int AddressId { get; set; }
-        public string PhoneNumber { get; set; }
-        public string PhoneNumber2 { get; set; }
+        public string StreetName { get; set; }
+        public string StreetNumber { get; set; }
+        public string FlatNumber { get; set; }
+        public string PostCode { get; set; }
+        public string PostOfficeCity { get; set; }
+        public string CorrespondenceStreetName { get; set; }
+        public string CorrespondenceStreetnumber { get; set; }
+        public string CorrespondenceFlatNumber { get; set; }
+        public string CorrespondencePostCode { get; set; }
+        public string CorrespondencePostOfficeCity { get; set; }
     
-        public virtual address address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<agreement> agreement { get; set; }
+        public virtual ICollection<person> person { get; set; }
     }
 }

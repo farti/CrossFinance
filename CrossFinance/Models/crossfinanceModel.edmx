@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="crossfinanceModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="StreetName" Type="varchar" MaxLength="45" />
+          <Property Name="StreetNumber" Type="varchar" MaxLength="45" />
+          <Property Name="FlatNumber" Type="varchar" MaxLength="45" />
+          <Property Name="PostCode" Type="varchar" MaxLength="45" />
+          <Property Name="PostOfficeCity" Type="varchar" MaxLength="45" />
+          <Property Name="CorrespondenceStreetName" Type="varchar" MaxLength="45" />
+          <Property Name="CorrespondenceStreetnumber" Type="varchar" MaxLength="45" />
+          <Property Name="CorrespondenceFlatNumber" Type="varchar" MaxLength="45" />
+          <Property Name="CorrespondencePostCode" Type="varchar" MaxLength="45" />
+          <Property Name="CorrespondencePostOfficeCity" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="agreement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="45" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="FinancialStateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="financialstate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutstandingLiabilites" Type="varchar" MaxLength="45" />
+          <Property Name="Interests" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="PenaltyInterests" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="Fees" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="CourtFees" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="RepresentationCourtFees" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="VindicationCosts" Type="decimal" Precision="13" Scale="4" />
+          <Property Name="RepresentationVindicationCosts" Type="decimal" Precision="13" Scale="4" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="45" />
+          <Property Name="SecondName" Type="varchar" MaxLength="45" />
+          <Property Name="Surname" Type="varchar" MaxLength="45" />
+          <Property Name="NationalIdentificationNumber" Type="varchar" MaxLength="45" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="45" />
+          <Property Name="PhoneNumber2" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <Association Name="fk_agreement_financialstate">
+          <End Role="financialstate" Type="Self.financialstate" Multiplicity="1" />
+          <End Role="agreement" Type="Self.agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="financialstate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="agreement">
+              <PropertyRef Name="FinancialStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_agreement_person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="agreement" Type="Self.agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="agreement">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_person_address">
+          <End Role="address" Type="Self.address" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_InsertPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="crossfinance">
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="SecondName" Type="varchar" Mode="In" />
+          <Parameter Name="Surname" Type="varchar" Mode="In" />
+          <Parameter Name="NationalIdentificationNumber" Type="varchar" Mode="In" />
+          <Parameter Name="AddressId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="PhoneNumber2" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="crossfinanceModelStoreContainer">
+          <EntitySet Name="address" EntityType="Self.address" Schema="crossfinance" store:Type="Tables" />
+          <EntitySet Name="agreement" EntityType="Self.agreement" Schema="crossfinance" store:Type="Tables" />
+          <EntitySet Name="financialstate" EntityType="Self.financialstate" Schema="crossfinance" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="crossfinance" store:Type="Tables" />
+          <AssociationSet Name="fk_agreement_financialstate" Association="Self.fk_agreement_financialstate">
+            <End Role="financialstate" EntitySet="financialstate" />
+            <End Role="agreement" EntitySet="agreement" />
+          </AssociationSet>
+          <AssociationSet Name="fk_agreement_person" Association="Self.fk_agreement_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="agreement" EntitySet="agreement" />
+          </AssociationSet>
+          <AssociationSet Name="fk_person_address" Association="Self.fk_person_address">
+            <End Role="address" EntitySet="address" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="crossfinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="StreetName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="StreetNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="FlatNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PostCode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PostOfficeCity" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CorrespondenceStreetName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CorrespondenceStreetnumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CorrespondenceFlatNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CorrespondencePostCode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CorrespondencePostOfficeCity" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="person" Relationship="Self.fk_person_address" FromRole="address" ToRole="person" />
+        </EntityType>
+        <EntityType Name="agreement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="FinancialStateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="financialstate" Relationship="Self.fk_agreement_financialstate" FromRole="agreement" ToRole="financialstate" />
+          <NavigationProperty Name="person" Relationship="Self.fk_agreement_person" FromRole="agreement" ToRole="person" />
+        </EntityType>
+        <EntityType Name="financialstate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutstandingLiabilites" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Interests" Type="Decimal" />
+          <Property Name="PenaltyInterests" Type="Decimal" />
+          <Property Name="Fees" Type="Decimal" />
+          <Property Name="CourtFees" Type="Decimal" />
+          <Property Name="RepresentationCourtFees" Type="Decimal" />
+          <Property Name="VindicationCosts" Type="Decimal" />
+          <Property Name="RepresentationVindicationCosts" Type="Decimal" />
+          <NavigationProperty Name="agreement" Relationship="Self.fk_agreement_financialstate" FromRole="financialstate" ToRole="agreement" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="SecondName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="NationalIdentificationNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="address" Relationship="Self.fk_person_address" FromRole="person" ToRole="address" />
+          <NavigationProperty Name="agreement" Relationship="Self.fk_agreement_person" FromRole="person" ToRole="agreement" />
+        </EntityType>
+        <Association Name="fk_person_address">
+          <End Role="address" Type="Self.address" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_agreement_financialstate">
+          <End Role="financialstate" Type="Self.financialstate" Multiplicity="1" />
+          <End Role="agreement" Type="Self.agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="financialstate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="agreement">
+              <PropertyRef Name="FinancialStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_agreement_person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="agreement" Type="Self.agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="agreement">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApplicationDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="address" EntityType="Self.address" />
+          <EntitySet Name="agreement" EntityType="Self.agreement" />
+          <EntitySet Name="financialstate" EntityType="Self.financialstate" />
+          <EntitySet Name="person" EntityType="Self.person" />
+          <AssociationSet Name="fk_person_address" Association="Self.fk_person_address">
+            <End Role="address" EntitySet="address" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="fk_agreement_financialstate" Association="Self.fk_agreement_financialstate">
+            <End Role="financialstate" EntitySet="financialstate" />
+            <End Role="agreement" EntitySet="agreement" />
+          </AssociationSet>
+          <AssociationSet Name="fk_agreement_person" Association="Self.fk_agreement_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="agreement" EntitySet="agreement" />
+          </AssociationSet>
+          <FunctionImport Name="sp_InsertPerson">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="SecondName" Mode="In" Type="String" />
+            <Parameter Name="Surname" Mode="In" Type="String" />
+            <Parameter Name="NationalIdentificationNumber" Mode="In" Type="String" />
+            <Parameter Name="AddressId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber2" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="crossfinanceModelStoreContainer" CdmEntityContainer="ApplicationDbContext">
+          <EntitySetMapping Name="address">
+            <EntityTypeMapping TypeName="crossfinanceModel.address">
+              <MappingFragment StoreEntitySet="address">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="PostOfficeCity" ColumnName="PostOfficeCity" />
+                <ScalarProperty Name="CorrespondenceStreetName" ColumnName="CorrespondenceStreetName" />
+                <ScalarProperty Name="CorrespondenceStreetnumber" ColumnName="CorrespondenceStreetnumber" />
+                <ScalarProperty Name="CorrespondenceFlatNumber" ColumnName="CorrespondenceFlatNumber" />
+                <ScalarProperty Name="CorrespondencePostCode" ColumnName="CorrespondencePostCode" />
+                <ScalarProperty Name="CorrespondencePostOfficeCity" ColumnName="CorrespondencePostOfficeCity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="agreement">
+            <EntityTypeMapping TypeName="crossfinanceModel.agreement">
+              <MappingFragment StoreEntitySet="agreement">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FinancialStateId" ColumnName="FinancialStateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="financialstate">
+            <EntityTypeMapping TypeName="crossfinanceModel.financialstate">
+              <MappingFragment StoreEntitySet="financialstate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OutstandingLiabilites" ColumnName="OutstandingLiabilites" />
+                <ScalarProperty Name="Interests" ColumnName="Interests" />
+                <ScalarProperty Name="PenaltyInterests" ColumnName="PenaltyInterests" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="CourtFees" ColumnName="CourtFees" />
+                <ScalarProperty Name="RepresentationCourtFees" ColumnName="RepresentationCourtFees" />
+                <ScalarProperty Name="VindicationCosts" ColumnName="VindicationCosts" />
+                <ScalarProperty Name="RepresentationVindicationCosts" ColumnName="RepresentationVindicationCosts" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="person">
+            <EntityTypeMapping TypeName="crossfinanceModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="NationalIdentificationNumber" ColumnName="NationalIdentificationNumber" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumber2" ColumnName="PhoneNumber2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertPerson" FunctionName="crossfinanceModel.Store.sp_InsertPerson" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
