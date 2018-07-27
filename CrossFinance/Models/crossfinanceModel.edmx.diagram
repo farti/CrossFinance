@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="69583c568b4d4347bb0643d9c321070d" Name="Diagram1">
         <EntityTypeShape EntityType="crossfinanceModel.address" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="crossfinanceModel.agreement" Width="1.5" PointX="5.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="crossfinanceModel.financialstate" Width="1.5" PointX="8.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="crossfinanceModel.agreement" Width="1.5" PointX="7.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="crossfinanceModel.financialstate" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crossfinanceModel.person" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="crossfinanceModel.fk_person_address" ManuallyRouted="false" />
         <AssociationConnector Association="crossfinanceModel.fk_agreement_financialstate" ManuallyRouted="false" />
