@@ -17,7 +17,7 @@ namespace CrossFinance.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadExcel( person objPersDetail , HttpPostedFileBase FileUpload)
+        public ActionResult UploadExcel( address objAddressDetails, person objPersonDetails ,financialstate objFinancialstateDetails,agreement objAgreementDetails, HttpPostedFileBase FileUpload)
         {
             string data = "";
             if (FileUpload != null)
@@ -37,31 +37,40 @@ namespace CrossFinance.Controllers
 
                         var excelFile = new ExcelQueryFactory(pathToExcelFile);
                         // Mapping excel column to mysql
+                        excelFile.AddMapping<address>(x=>x.StreetName, "MAIN_STREET_NAME");
+                        excelFile.AddMapping<address>(x=>x.StreetNumber, "MAIN_STREET_NUMBER");
+                        excelFile.AddMapping<address>(x=>x.FlatNumber, "MAIN_STREET_FLAT_NUMBER");
+                        excelFile.AddMapping<address>(x=>x.PostCode, "MAIN_POST_CODE");
+                        excelFile.AddMapping<address>(x=>x.PostOfficeCity, "MAIN_POST_OFFICE_CITY");
+                        excelFile.AddMapping<address>(x=>x.CorrespondenceStreetName, "CORRESPONDENCE_STREET_NAME");
+                        excelFile.AddMapping<address>(x=>x.CorrespondenceStreetnumber, "CORRESPONDENCE_STREET_NUMBER");
+                        excelFile.AddMapping<address>(x=>x.CorrespondenceFlatNumber, "CORRESPONDENCE_STREET_FLAT_NUMBER");
+
                         excelFile.AddMapping<person>(x=>x.FirstName, "imie");
                         excelFile.AddMapping<person>(x=>x.Surname, "nazwisko");
                         excelFile.AddMapping<person>(x=>x.NationalIdentificationNumber, "PESEL");
-                        excelFile.AddMapping<person>(x=>x.PhoneNumber, "Telefon 1");
+                        excelFile.AddMapping<person>(x=>x.PhoneNumber, "Telefon 1"); 
                         excelFile.AddMapping<person>(x=>x.PhoneNumber2, "Telefon2");
-                        
 
-                        var persDetails = from a in excelFile.Worksheet<person>(sheetName) select a;
-                        foreach (var a in persDetails)
+                        excelFile.AddMapping<financialstate>(x=>x.OutstandingLiabilites, "Kapital");
+                        excelFile.AddMapping<financialstate>(x=>x.Interests, "odsetki");
+                        excelFile.AddMapping<financialstate>(x=>x.PenaltyInterests, "odsetki Karne");
+                        excelFile.AddMapping<financialstate>(x=>x.Fees, "opłaty");
+                        excelFile.AddMapping<financialstate>(x=>x.CourtFees, "koszty sadowe");
+                        excelFile.AddMapping<financialstate>(x=>x.RepresentationCourtFees, "koszty zastepstwa sadowego");
+                        excelFile.AddMapping<financialstate>(x=>x.VindicationCosts, "koszty egzekucji");
+                        excelFile.AddMapping<financialstate>(x=>x.RepresentationVindicationCosts, "koszty zastepstwa egzekucyjnego");
+
+                        excelFile.AddMapping<agreement>(x=>x.Number, "nr_umowy");
+
+                        var dataDetails = from a in excelFile.Worksheet<>(sheetName) select a;
+
+                        foreach (var a in dataDetails)
                         {
-                            int resullt = PostExcelData(a.FirstName, a.SecondName, a.Surname, a.NationalIdentificationNumber, a.AddressId, a.PhoneNumber, a.PhoneNumber2);
-
-                            if (resullt <= 0)
-                            {
-                                data = "Found some duplicate values! Only unique person has inserted and duplicate values(s) are not inserted";
-                                ViewBag.Message = data;
-                                continue;
-
-                            }
-                            else
-                            {
-                                data = "Successful upload records";
-                                ViewBag.Message = data;
-                            }
+                           
                         }
+                        data = "Successful upload records";
+                        ViewBag.Message = data;
 
                     }
 
@@ -98,12 +107,24 @@ namespace CrossFinance.Controllers
             }
         }
 
-        public int PostExcelData(string FirstName, string SecondName, string Surname,
-            string NationalIdentificationNumber, int AddressId, string PhoneNumber, string PhoneNumber2)
+        public int PostExcelData(
+            string StreetName,string StreetNumber, string FlatNumber, string PostCode, string PostOfficeCity, string CorrespondenceStreetName, string CorrespondenceStreetnumber, string CorrespondenceFlatNumber, string CorrespondencePostCode, string CorrespondencePostOfficeCity,
+            string FirstName, string SecondName, string Surname, string NationalIdentificationNumber, int AddressId,string PhoneNumber, string PhoneNumber2,
+            decimal OutstandingLiabilites, decimal Interests,decimal PenaltyInterests, decimal Fees,decimal CourtFees,decimal RepresentationCourtFees,decimal VindicationCosts,decimal RepresentationVindicationCosts,
+            string Number, int PersonId, int FinancialStateId
+            )
         {
             ApplicationDbContext _context = new ApplicationDbContext();
-            var InsertExcelData = _context.sp_InsertPerson(FirstName, SecondName, Surname, NationalIdentificationNumber,
-                AddressId, PhoneNumber, PhoneNumber2);
+            var InsertExcelData = _context.sp_InsertData(
+                StreetName, StreetNumber, FlatNumber, PostCode, PostOfficeCity, CorrespondenceStreetName,
+                CorrespondenceStreetnumber, CorrespondenceFlatNumber, CorrespondencePostCode,
+                CorrespondencePostOfficeCity,
+                FirstName, SecondName, Surname, NationalIdentificationNumber, AddressId, PhoneNumber, PhoneNumber2,
+                OutstandingLiabilites, Interests, PenaltyInterests, Fees, CourtFees, RepresentationCourtFees,
+                VindicationCosts, RepresentationVindicationCosts,
+                Number, PersonId, FinancialStateId
+            );
+
             return InsertExcelData;
         }
 
