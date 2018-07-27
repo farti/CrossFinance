@@ -37,7 +37,12 @@ namespace CrossFinance.Controllers
 
                         var excelFile = new ExcelQueryFactory(pathToExcelFile);
                         // Mapping excel column to mysql
-                        excelFile.AddMapping<person>(x=>x.FirstName, "Imię");
+                        excelFile.AddMapping<person>(x=>x.FirstName, "imie");
+                        excelFile.AddMapping<person>(x=>x.Surname, "nazwisko");
+                        excelFile.AddMapping<person>(x=>x.NationalIdentificationNumber, "PESEL");
+                        excelFile.AddMapping<person>(x=>x.PhoneNumber, "Telefon 1");
+                        excelFile.AddMapping<person>(x=>x.PhoneNumber2, "Telefon2");
+                        
 
                         var persDetails = from a in excelFile.Worksheet<person>(sheetName) select a;
                         foreach (var a in persDetails)
