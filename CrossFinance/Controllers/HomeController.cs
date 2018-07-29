@@ -68,6 +68,15 @@ namespace CrossFinance.Controllers
 
                         foreach (var a in dataDetails)
                         {
+                            //PESEL validator
+                            if (!PeselIsValid(a.NationalIdentificationNumber))
+                            {
+                                data += $"{a.NationalIdentificationNumber} is invalid PESEL number! \n";
+                                ViewBag.Message = data;
+                      
+                            }
+
+
                             var myOutstandingLiabilites = Convert.ToDecimal(a.OutstandingLiabilites);
                             var myInterests = Convert.ToDecimal(a.Interests);
                             var myPenaltyInterests = Convert.ToDecimal(a.PenaltyInterests);
@@ -86,7 +95,7 @@ namespace CrossFinance.Controllers
                         }
 
 
-                        data = "Successful upload records";
+                        data += "Successful upload records!";
                         ViewBag.Message = data;
 
                     }
@@ -143,6 +152,43 @@ namespace CrossFinance.Controllers
             );
 
             return InsertExcelData;
+        }
+
+        public bool PeselIsValid(string pesel)
+        {
+            bool validator = true;
+            if (pesel.Length != 11)
+            {
+                validator = false;
+            }
+            else
+            {
+                int[] weight = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
+                int k = 0;
+
+                for (int i = 0; i < pesel.Length; i++)
+                {
+                    int temp;
+                    if (!Int32.TryParse(pesel[i].ToString(), out temp))
+                    {
+                        validator = false;
+                    }
+
+                    if (i+1 == pesel.Length)
+                    {
+                        if ((10 - k % 10) % 10 != temp)
+                        {
+                            validator = false;
+                        }
+                    }
+                    else
+                    {
+                        k += temp * weight[i];
+                    }
+                }
+            }
+
+            return validator;
         }
 
     }
