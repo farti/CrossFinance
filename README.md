@@ -17,4 +17,4 @@
 
 ## Configuration
 
-* Create MySql database from: [script sql]https://github.com/farti/CrossFinance/blob/master/CrossFinance/DataBaseScript/crossfinance.sql) 
+* Create MySql database from: [script sql](https://github.com/farti/CrossFinance/blob/master/CrossFinance/DataBaseScript/crossfinance.sql) 
