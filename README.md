@@ -14,9 +14,7 @@
 * MySql.Data.EntityFramework
 * LinqToExcel
 * Bootstrap 
-* jQuery 
-* automapper 
-* 
 
 ## Configuration
 
+* Create MySql database from: [script sql](../CrossFinance/CrossFinance/DataBaseScript/crossfinance.sql) 
