@@ -93,23 +93,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_InsertAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="crossfinance">
-          <Parameter Name="StreetName" Type="varchar" Mode="In" />
-          <Parameter Name="StreetNumber" Type="varchar" Mode="In" />
-          <Parameter Name="FlatNumber" Type="varchar" Mode="In" />
-          <Parameter Name="PostCode" Type="varchar" Mode="In" />
-          <Parameter Name="PostOfficeCity" Type="varchar" Mode="In" />
-          <Parameter Name="CorrespondenceStreetName" Type="varchar" Mode="In" />
-          <Parameter Name="CorrespondenceStreetnumber" Type="varchar" Mode="In" />
-          <Parameter Name="CorrespondenceFlatNumber" Type="varchar" Mode="In" />
-          <Parameter Name="CorrespondencePostCode" Type="varchar" Mode="In" />
-          <Parameter Name="CorrespondencePostOfficeCity" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="sp_InsertAgreement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="crossfinance">
-          <Parameter Name="Number" Type="varchar" Mode="In" />
-          <Parameter Name="PersonID" Type="int" Mode="In" />
-          <Parameter Name="FinancialStateId" Type="int" Mode="In" />
-        </Function>
         <Function Name="sp_InsertData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="crossfinance">
           <Parameter Name="StreetName" Type="varchar" Mode="In" />
           <Parameter Name="StreetNumber" Type="varchar" Mode="In" />
@@ -139,25 +122,6 @@
           <Parameter Name="Number" Type="varchar" Mode="In" />
           <Parameter Name="PersonID" Type="int" Mode="In" />
           <Parameter Name="FinancialStateId" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_InsertFinancialState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="crossfinance">
-          <Parameter Name="OutstandingLiabilites" Type="decimal" Mode="In" />
-          <Parameter Name="Interests" Type="decimal" Mode="In" />
-          <Parameter Name="PenaltyInterests" Type="decimal" Mode="In" />
-          <Parameter Name="Fees" Type="decimal" Mode="In" />
-          <Parameter Name="CourtFees" Type="decimal" Mode="In" />
-          <Parameter Name="RepresentationCourtFees" Type="decimal" Mode="In" />
-          <Parameter Name="VindicationCosts" Type="decimal" Mode="In" />
-          <Parameter Name="RepresentationVindicationCosts" Type="decimal" Mode="In" />
-        </Function>
-        <Function Name="sp_InsertPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="crossfinance">
-          <Parameter Name="FirstName" Type="varchar" Mode="In" />
-          <Parameter Name="SecondName" Type="varchar" Mode="In" />
-          <Parameter Name="Surname" Type="varchar" Mode="In" />
-          <Parameter Name="NationalIdentificationNumber" Type="varchar" Mode="In" />
-          <Parameter Name="AddressId" Type="int" Mode="In" />
-          <Parameter Name="PhoneNumber" Type="varchar" Mode="In" />
-          <Parameter Name="PhoneNumber2" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="crossfinanceModelStoreContainer">
           <EntitySet Name="address" EntityType="Self.address" Schema="crossfinance" store:Type="Tables" />
@@ -421,12 +385,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsertPerson" FunctionName="crossfinanceModel.Store.sp_InsertPerson" />
           <FunctionImportMapping FunctionImportName="sp_InsertData" FunctionName="crossfinanceModel.Store.sp_InsertData" />
-          <FunctionImportMapping FunctionImportName="sp_InsertAddress" FunctionName="crossfinanceModel.Store.sp_InsertAddress" />
-          <FunctionImportMapping FunctionImportName="sp_InsertAgreement" FunctionName="crossfinanceModel.Store.sp_InsertAgreement" />
-          <FunctionImportMapping FunctionImportName="sp_InsertFinancialState" FunctionName="crossfinanceModel.Store.sp_InsertFinancialState" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

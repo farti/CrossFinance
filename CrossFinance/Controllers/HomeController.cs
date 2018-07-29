@@ -47,6 +47,8 @@ namespace CrossFinance.Controllers
                         excelFile.AddMapping<address>(x=>x.CorrespondenceStreetName, "CORRESPONDENCE_STREET_NAME");
                         excelFile.AddMapping<address>(x=>x.CorrespondenceStreetnumber, "CORRESPONDENCE_STREET_NUMBER");
                         excelFile.AddMapping<address>(x=>x.CorrespondenceFlatNumber, "CORRESPONDENCE_STREET_FLAT_NUMBER");
+                        excelFile.AddMapping<address>(x=>x.CorrespondencePostCode, "CORRESPONDENCE_POST_CODE");
+                        excelFile.AddMapping<address>(x=>x.CorrespondencePostOfficeCity, "CORRESPONDENCE_POST_OFFICE_CITY");
 
                         excelFile.AddMapping<person>(x=>x.FirstName, "imie");
                         excelFile.AddMapping<person>(x=>x.Surname, "nazwisko");
@@ -69,32 +71,38 @@ namespace CrossFinance.Controllers
 
                         foreach (var a in dataDetails)
                         {
-                            //PESEL validator
-                            if (!PeselIsValid(a.NationalIdentificationNumber))
+                            if (a.NationalIdentificationNumber != null)
                             {
-                                dataNotValidPesel += a.NationalIdentificationNumber+ Environment.NewLine;
-                                ViewBag.PeselMessage = dataNotValidPesel;
-                                
+                                //PESEL validator
+                                if (!PeselIsValid(a.NationalIdentificationNumber))
+                                {
+                                    dataNotValidPesel += a.NationalIdentificationNumber + Environment.NewLine;
+                                    ViewBag.PeselMessage = dataNotValidPesel;
+
+                                }
+
+
+                                var myOutstandingLiabilites = Convert.ToDecimal(a.OutstandingLiabilites);
+                                var myInterests = Convert.ToDecimal(a.Interests);
+                                var myPenaltyInterests = Convert.ToDecimal(a.PenaltyInterests);
+                                var myFees = Convert.ToDecimal(a.Fees);
+                                var myCourtFees = Convert.ToDecimal(a.CourtFees);
+                                var myRepresentationCourtFees = Convert.ToDecimal(a.RepresentationCourtFees);
+                                var myVindicationCosts = Convert.ToDecimal(a.VindicationCosts);
+                                var myRepresentationVindicationCosts =
+                                    Convert.ToDecimal(a.RepresentationVindicationCosts);
+
+                                var insert = PostExcelData(a.StreetName, a.StreetNumber, a.FlatNumber, a.PostCode,
+                                    a.PostOfficeCity, a.CorrespondenceStreetName, a.CorrespondenceStreetnumber,
+                                    a.CorrespondenceFlatNumber, a.CorrespondencePostCode,
+                                    a.CorrespondencePostOfficeCity,
+                                    a.FirstName, a.SecondName, a.Surname, a.NationalIdentificationNumber, a.AddressId,
+                                    a.PhoneNumber, a.PhoneNumber2,
+                                    myOutstandingLiabilites, myInterests, myPenaltyInterests, myFees, myCourtFees,
+                                    myRepresentationCourtFees, myVindicationCosts, myRepresentationVindicationCosts,
+                                    a.Number, a.PersonId, a.FinancialStateId);
                             }
-
-
-                            var myOutstandingLiabilites = Convert.ToDecimal(a.OutstandingLiabilites);
-                            var myInterests = Convert.ToDecimal(a.Interests);
-                            var myPenaltyInterests = Convert.ToDecimal(a.PenaltyInterests);
-                            var myFees = Convert.ToDecimal(a.Fees);
-                            var myCourtFees = Convert.ToDecimal(a.CourtFees);
-                            var myRepresentationCourtFees = Convert.ToDecimal(a.RepresentationCourtFees);
-                            var myVindicationCosts = Convert.ToDecimal(a.VindicationCosts);
-                            var myRepresentationVindicationCosts = Convert.ToDecimal(a.RepresentationVindicationCosts);
-
-                            var insert = PostExcelData(a.StreetName, a.StreetNumber, a.FlatNumber, a.PostCode,
-                                a.PostOfficeCity, a.CorrespondenceStreetName, a.CorrespondenceStreetnumber,
-                                a.CorrespondenceFlatNumber, a.CorrespondencePostCode, a.CorrespondencePostOfficeCity,
-                                a.FirstName, a.SecondName, a.Surname, a.NationalIdentificationNumber, a.AddressId, a.PhoneNumber, a.PhoneNumber2,
-                            myOutstandingLiabilites, myInterests, myPenaltyInterests,myFees,myCourtFees,myRepresentationCourtFees,myVindicationCosts,myRepresentationVindicationCosts,
-                            a.Number, a.PersonId,a.FinancialStateId);
                         }
-
 
                         data = "Successful upload records!";
                         ViewBag.Message = data;
@@ -143,9 +151,8 @@ namespace CrossFinance.Controllers
         {
             ApplicationDbContext _context = new ApplicationDbContext();
             var InsertExcelData = _context.sp_InsertData(
-                StreetName, StreetNumber, FlatNumber, PostCode, PostOfficeCity, CorrespondenceStreetName,
-                CorrespondenceStreetnumber, CorrespondenceFlatNumber, CorrespondencePostCode,
-                CorrespondencePostOfficeCity,
+                StreetName, StreetNumber, FlatNumber, PostCode, PostOfficeCity, CorrespondenceStreetName, CorrespondenceStreetnumber, CorrespondenceFlatNumber, CorrespondencePostCode, CorrespondencePostOfficeCity,
+
                 FirstName, SecondName, Surname, NationalIdentificationNumber, AddressId, PhoneNumber, PhoneNumber2,
                 OutstandingLiabilites, Interests, PenaltyInterests, Fees, CourtFees, RepresentationCourtFees,
                 VindicationCosts, RepresentationVindicationCosts,
