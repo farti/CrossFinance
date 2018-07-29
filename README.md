@@ -27,6 +27,7 @@
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   ```
-  
-  *
+* Clone repository, double click on CrossFinance.sln file in Solution Explorer ( check if Default project is set )
+* Go to Package Manager Console and run Update-Package 
+* Build and run app !
   
