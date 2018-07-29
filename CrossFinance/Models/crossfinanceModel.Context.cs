@@ -20,6 +20,8 @@ namespace CrossFinance.Models
         public ApplicationDbContext()
             : base("name=ApplicationDbContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

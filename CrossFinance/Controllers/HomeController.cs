@@ -11,6 +11,13 @@ namespace CrossFinance.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -149,7 +156,7 @@ namespace CrossFinance.Controllers
             string Number, int PersonId, int FinancialStateId
             )
         {
-            ApplicationDbContext _context = new ApplicationDbContext();
+
             var InsertExcelData = _context.sp_InsertData(
                 StreetName, StreetNumber, FlatNumber, PostCode, PostOfficeCity, CorrespondenceStreetName, CorrespondenceStreetnumber, CorrespondenceFlatNumber, CorrespondencePostCode, CorrespondencePostOfficeCity,
 
