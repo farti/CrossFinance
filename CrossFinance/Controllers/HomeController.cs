@@ -145,35 +145,6 @@ namespace CrossFinance.Controllers
             return InsertExcelData;
         }
 
-        //public int PostExcelAddress(
-        //    string StreetName, string StreetNumber, string FlatNumber, string PostCode, string PostOfficeCity, string CorrespondenceStreetName, string CorrespondenceStreetnumber, string CorrespondenceFlatNumber, string CorrespondencePostCode, string CorrespondencePostOfficeCity
-
-        //)
-        //{
-        //    ApplicationDbContext _context = new ApplicationDbContext();
-        //    var InsertExcelData = _context.sp_InsertAddress(
-        //        StreetName, StreetNumber, FlatNumber, PostCode, PostOfficeCity, CorrespondenceStreetName,
-        //        CorrespondenceStreetnumber, CorrespondenceFlatNumber, CorrespondencePostCode,
-        //        CorrespondencePostOfficeCity
-
-        //    );
-
-        //    return InsertExcelData;
-        //}
-
-        //public int PostExcelPerson(
-        //    string FirstName, string SecondName, string Surname, string NationalIdentificationNumber, int AddressId,string PhoneNumber, string PhoneNumber2
-
-        //)
-        //{
-        //    ApplicationDbContext _context = new ApplicationDbContext();
-        //    var InsertExcelData = _context.sp_InsertPerson(
-        //       FirstName, SecondName, Surname, NationalIdentificationNumber, AddressId, PhoneNumber, PhoneNumber2
-        //    );
-
-        //    return InsertExcelData;
-        //}
-
     }
 
 }
