@@ -5,7 +5,7 @@
 * [Configuration](#configuration)
 
 ## General info
-* Recruitment project for CrossFinance company.  Simple apliccation, whicg transform data from excel file to MySql four tables.  Use validation PESEL number.
+* Recruitment project for CrossFinance company.  Simple apliccation, which transform data from excel file to MySql four tables.  Use validation PESEL number.
 
 
 ## Technologies
