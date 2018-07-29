@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CrossFinance.Models;
 using LinqToExcel;
+using CrossFinance.ImportService;
 
 namespace CrossFinance.Controllers
 {
@@ -18,11 +19,14 @@ namespace CrossFinance.Controllers
             _context = new ApplicationDbContext();
         }
 
+        ImportService.ImportService client = new ImportService.ImportService();
+
+
         public ActionResult Index()
         {
             return View();
         }
-
+        
 
         [HttpPost]
         public ActionResult UploadExcel( address objAddressDetails, person objPersonDetails ,financialstate objFinancialstateDetails,agreement objAgreementDetails, HttpPostedFileBase FileUpload)

@@ -5,6 +5,28 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossFinance", "CrossFinance\CrossFinance.csproj", "{C0643001-32A5-46EC-9449-946038C78505}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ImportService(1)", "ImportService\", "{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50254"
+		Debug.AspNetCompiler.PhysicalPath = "ImportService\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50254\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50254"
+		Release.AspNetCompiler.PhysicalPath = "ImportService\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50254\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50254"
+		SlnRelativePath = "ImportService\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +49,18 @@ Global
 		{C0643001-32A5-46EC-9449-946038C78505}.Release|x64.Build.0 = Release|x64
 		{C0643001-32A5-46EC-9449-946038C78505}.Release|x86.ActiveCfg = Release|x86
 		{C0643001-32A5-46EC-9449-946038C78505}.Release|x86.Build.0 = Release|x86
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Debug|x64.Build.0 = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Debug|x86.Build.0 = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Release|x64.ActiveCfg = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Release|x64.Build.0 = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Release|x86.ActiveCfg = Debug|Any CPU
+		{1AAB44B1-2831-4B85-A243-DCC1636ED5D2}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
