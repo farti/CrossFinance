@@ -21,6 +21,7 @@ namespace CrossFinance.Controllers
         public ActionResult UploadExcel( address objAddressDetails, person objPersonDetails ,financialstate objFinancialstateDetails,agreement objAgreementDetails, HttpPostedFileBase FileUpload)
         {
             string data = "";
+            string dataNotValidPesel = "";
             if (FileUpload != null)
             {
                 if (FileUpload.ContentType == "application/vnd.ms-excel" || FileUpload.ContentType ==
@@ -71,9 +72,9 @@ namespace CrossFinance.Controllers
                             //PESEL validator
                             if (!PeselIsValid(a.NationalIdentificationNumber))
                             {
-                                data += $"{a.NationalIdentificationNumber} is invalid PESEL number! \n";
-                                ViewBag.Message = data;
-                      
+                                dataNotValidPesel += a.NationalIdentificationNumber+ Environment.NewLine;
+                                ViewBag.PeselMessage = dataNotValidPesel;
+                                
                             }
 
 
@@ -95,7 +96,7 @@ namespace CrossFinance.Controllers
                         }
 
 
-                        data += "Successful upload records!";
+                        data = "Successful upload records!";
                         ViewBag.Message = data;
 
                     }

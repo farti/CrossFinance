@@ -3,19 +3,40 @@
 }
 
 <div class="jumbotron">
-    <div align="center">  
-        @if (ViewBag.Message != null)  
-        {  
-            <span class="alert alert-warning"> @ViewBag.Message</span>  
-        }  
-  
+    <div align="center">
+        @if (ViewBag.Message != null)
+        {
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+
+                <div class="card-body">
+
+                    <p class="card-text"> @ViewBag.Message</p>
+                </div>
+            </div>
+
+        }
+        @if (ViewBag.PeselMessage != null)
+        {
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">Invalid PESEL number</div>
+                <div class="card-body">
+
+                    <p class="card-text"> @ViewBag.PeselMessage</p>
+                </div>
+
+            </div>
+        }
+        @if (ViewBag.Message != "Successful upload records!")
+        {
             <div align="right" class="btn btn-default">
-                @using (Html.BeginForm("UploadExcel", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("UploadExcel", "Home", FormMethod.Post, new {@enctype = "multipart/form-data"}))
                 {
-                    <input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload" /><br /> <br />
-                    <input type="submit" class="btn btn-primary" name="UploadNewExcel" id="fileUploadExcel" value="Upload New Excel File" />
+                    <input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload"/>
+                    <br/>
+                    <br/>
+                    <input type="submit" class="btn btn-primary" name="UploadNewExcel" id="fileUploadExcel" value="Upload New Excel File"/>
                 }
-            </div>  
+            </div>
+        }
     </div>  
 </div>
-
