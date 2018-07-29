@@ -27,6 +27,6 @@
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   ```
-  
-  *
+* Clone repository, double click on in Solution Explorer
+* Go to Package Manager Console and run Update-Package ( hceck if Default project is set )
   
