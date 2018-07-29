@@ -16,6 +16,7 @@ namespace CrossFinance.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult UploadExcel( address objAddressDetails, person objPersonDetails ,financialstate objFinancialstateDetails,agreement objAgreementDetails, HttpPostedFileBase FileUpload)
         {
@@ -63,12 +64,28 @@ namespace CrossFinance.Controllers
 
                         excelFile.AddMapping<agreement>(x=>x.Number, "nr_umowy");
 
-                        var dataDetails = from a in excelFile.Worksheet<>(sheetName) select a;
+                        var dataDetails = from a in excelFile.Worksheet<data>(sheetName) select a;
 
                         foreach (var a in dataDetails)
                         {
-                           
+                            var myOutstandingLiabilites = Convert.ToDecimal(a.OutstandingLiabilites);
+                            var myInterests = Convert.ToDecimal(a.Interests);
+                            var myPenaltyInterests = Convert.ToDecimal(a.PenaltyInterests);
+                            var myFees = Convert.ToDecimal(a.Fees);
+                            var myCourtFees = Convert.ToDecimal(a.CourtFees);
+                            var myRepresentationCourtFees = Convert.ToDecimal(a.RepresentationCourtFees);
+                            var myVindicationCosts = Convert.ToDecimal(a.VindicationCosts);
+                            var myRepresentationVindicationCosts = Convert.ToDecimal(a.RepresentationVindicationCosts);
+
+                            var insert = PostExcelData(a.StreetName, a.StreetNumber, a.FlatNumber, a.PostCode,
+                                a.PostOfficeCity, a.CorrespondenceStreetName, a.CorrespondenceStreetnumber,
+                                a.CorrespondenceFlatNumber, a.CorrespondencePostCode, a.CorrespondencePostOfficeCity,
+                                a.FirstName, a.SecondName, a.Surname, a.NationalIdentificationNumber, a.AddressId, a.PhoneNumber, a.PhoneNumber2,
+                            myOutstandingLiabilites, myInterests, myPenaltyInterests,myFees,myCourtFees,myRepresentationCourtFees,myVindicationCosts,myRepresentationVindicationCosts,
+                            a.Number, a.PersonId,a.FinancialStateId);
                         }
+
+
                         data = "Successful upload records";
                         ViewBag.Message = data;
 
@@ -109,8 +126,8 @@ namespace CrossFinance.Controllers
 
         public int PostExcelData(
             string StreetName,string StreetNumber, string FlatNumber, string PostCode, string PostOfficeCity, string CorrespondenceStreetName, string CorrespondenceStreetnumber, string CorrespondenceFlatNumber, string CorrespondencePostCode, string CorrespondencePostOfficeCity,
-            string FirstName, string SecondName, string Surname, string NationalIdentificationNumber, int AddressId,string PhoneNumber, string PhoneNumber2,
-            decimal OutstandingLiabilites, decimal Interests,decimal PenaltyInterests, decimal Fees,decimal CourtFees,decimal RepresentationCourtFees,decimal VindicationCosts,decimal RepresentationVindicationCosts,
+            string FirstName, string SecondName, string Surname, string NationalIdentificationNumber, int AddressId, string PhoneNumber, string PhoneNumber2,
+            decimal OutstandingLiabilites, decimal Interests, decimal PenaltyInterests, decimal Fees, decimal CourtFees, decimal RepresentationCourtFees, decimal VindicationCosts, decimal RepresentationVindicationCosts,
             string Number, int PersonId, int FinancialStateId
             )
         {
@@ -127,6 +144,35 @@ namespace CrossFinance.Controllers
 
             return InsertExcelData;
         }
+
+        //public int PostExcelAddress(
+        //    string StreetName, string StreetNumber, string FlatNumber, string PostCode, string PostOfficeCity, string CorrespondenceStreetName, string CorrespondenceStreetnumber, string CorrespondenceFlatNumber, string CorrespondencePostCode, string CorrespondencePostOfficeCity
+
+        //)
+        //{
+        //    ApplicationDbContext _context = new ApplicationDbContext();
+        //    var InsertExcelData = _context.sp_InsertAddress(
+        //        StreetName, StreetNumber, FlatNumber, PostCode, PostOfficeCity, CorrespondenceStreetName,
+        //        CorrespondenceStreetnumber, CorrespondenceFlatNumber, CorrespondencePostCode,
+        //        CorrespondencePostOfficeCity
+
+        //    );
+
+        //    return InsertExcelData;
+        //}
+
+        //public int PostExcelPerson(
+        //    string FirstName, string SecondName, string Surname, string NationalIdentificationNumber, int AddressId,string PhoneNumber, string PhoneNumber2
+
+        //)
+        //{
+        //    ApplicationDbContext _context = new ApplicationDbContext();
+        //    var InsertExcelData = _context.sp_InsertPerson(
+        //       FirstName, SecondName, Surname, NationalIdentificationNumber, AddressId, PhoneNumber, PhoneNumber2
+        //    );
+
+        //    return InsertExcelData;
+        //}
 
     }
 

@@ -21,7 +21,7 @@ namespace CrossFinance.Models
         }
     
         public int Id { get; set; }
-        public string OutstandingLiabilites { get; set; }
+        public Nullable<decimal> OutstandingLiabilites { get; set; }
         public Nullable<decimal> Interests { get; set; }
         public Nullable<decimal> PenaltyInterests { get; set; }
         public Nullable<decimal> Fees { get; set; }

@@ -201,6 +201,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>crossfinanceModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\data.cs" />
     <Compile Include="Models\financialstate.cs">
       <DependentUpon>crossfinanceModel.tt</DependentUpon>
     </Compile>
