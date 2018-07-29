@@ -3,6 +3,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Configuration](#configuration)
+* [Print screens](#print-screens)
 
 ## General info
 * Recruitment project for CrossFinance company.  Simple apliccation, which transform data from excel file to MySql four tables.  Use validation PESEL number.
@@ -30,4 +31,10 @@
 * Clone repository, double click on CrossFinance.sln file in Solution Explorer ( check if Default project is set )
 * Go to Package Manager Console and run Update-Package 
 * Build and run app !
-  
+
+## Print screens
+![alt text](https://github.com/farti/CrossFinance/blob/master/CrossFinance/img/ps1.PNG)  
+
+![alt text](https://github.com/farti/CrossFinance/blob/master/CrossFinance/img/ps2.PNG)
+
+ 
